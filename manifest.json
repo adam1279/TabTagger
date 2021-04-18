@@ -1,0 +1,39 @@
+{
+    "manifest_version": 3,
+    "name": "TabTagger",
+    "version": "0.0",
+    "description": "",
+    "permissions": [
+        "storage",
+        "tabs",
+        "alarms",
+        "activeTab",
+        "history",
+        "tabGroups"
+    ],
+    "host_permissions": [
+        "<all_urls>"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [{
+        "matches": [
+            "<all_urls>"
+        ],
+        "js": ["content.js"]
+    }],
+    "action": {
+        "default_icon": "Logo.png",
+        "default_popup": "index.html"
+    },
+    "icons": {
+        "16": "Logo.png",
+        "32": "Logo.png",
+        "48": "Logo.png",
+        "128": "Logo.png"
+    },
+    "content_security_policy": {
+        "isolated_world": "script-src 'self' 'https://unpkg.com/ml5@0.6.1/dist/ml5.min.js'; object-src 'self'"
+    }
+}

@@ -4,12 +4,13 @@ function modelLoaded() {
 
 }*/
 
-chrome.tabs.onCreated.addListener(function(tab) {
+chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tabInfo) {
     //console.log(tab);
     //console.log(getSemanticTags(tab.title));
-    chrome.storage.sync.get([tab.url], function(result) {
-        if (result[tab.url]) {
-            funcs.addToGroup(result[tab.url][0]);
+    chrome.storage.sync.get(['tabs'], function(result) {
+        tabs = (result.tabs) ? result.tabs : {};
+        if (tabs[tabInfo.url]) {
+            funcs.addToGroup(tabs[tabInfo.url][0]);
         }
     });
 });
@@ -24,18 +25,19 @@ funcs = {
                 url: tab[0].url,
                 title: tab[0].title
             };
-            chrome.storage.sync.get([tag, tab[0].url], function(result) {
-                data = (result[tag]) ? result[tag] : [];
+            chrome.storage.sync.get(['tabs'], function(result) {
+                /*tags = (result.tags) ? result.tags : {};
+                data = (tags[tag]) ? tags[tag] : [];
                 data.push(tabInfo);
-                obj = {};
-                obj[tag] = data;
-                chrome.storage.sync.set(obj);
-    
-                data = (result[tab[0].url]) ? result[tab[0].url] : [];
-                data.push(tag);
-                obj = {};
-                obj[tab[0].url] = data;
-                chrome.storage.sync.set(obj);
+                tags[tag] = data;
+                chrome.storage.sync.set({'tags': tags});*/
+                
+                tabs = (result.tabs) ? result.tabs : {};
+                data = (tabs[tab[0].url]) ? tabs[tab[0].url] : {};
+                data.tag = tag;
+                data.title = tab[0].title;
+                tabs[tab[0].url] = data;
+                chrome.storage.sync.set({'tabs': tabs});
             });
         });
     },

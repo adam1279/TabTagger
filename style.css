@@ -1,3 +1,8 @@
 .tagInput {
     text-transform: lowercase;
 }
+.tagDiv, .tabDiv {
+    border: solid gray 1px;
+    padding: 5px;
+    border-radius: 5px;
+}

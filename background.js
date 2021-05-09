@@ -73,7 +73,7 @@ chrome.runtime.onMessage.addListener(function(msg) {
 	    .catch(err => console.error(err));*/
 });
 chrome.tabGroups.onMoved.addListener(function() {
-    console.log('weeet');
+    
 });
 /*function getSemanticTags(sentence) {
     words = sentence.split(" ");
